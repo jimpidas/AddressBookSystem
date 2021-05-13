@@ -4,35 +4,16 @@ using System.Text;
 
 namespace AddressBook
 {
-    class Contacts
+    public class Contacts
     {
-        static string firstName, lastName, address, city, state, email;
-        static int pinCode, phoneNo;
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Email { get; set; }
+        public int Zip { get; set; }
+        public long PhoneNumber { get; set; }
 
-
-
-        public void addContact()
-        {
-            Console.WriteLine("Add first name :");
-            firstName = Console.ReadLine();
-            Console.WriteLine("Add last name :");
-            lastName = Console.ReadLine();
-            Console.WriteLine("Add address :");
-            address = Console.ReadLine();
-            Console.WriteLine("Add city :");
-            city = Console.ReadLine();
-            Console.WriteLine("Add state :");
-            state = Console.ReadLine();
-            Console.WriteLine("Add email :");
-            email = Console.ReadLine();
-            Console.WriteLine("Add zipcode :");
-            pinCode = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Add phoneno :");
-            phoneNo = Convert.ToInt32(Console.ReadLine());
-
-
-            Console.WriteLine("Name : " + firstName + "" + lastName + "\n Address: " + address + "\n city :" + city + "\n state : " + state + "\n Zipcode: " + pinCode + "\n phone number :" + phoneNo);
-
-        }
     }
 }
