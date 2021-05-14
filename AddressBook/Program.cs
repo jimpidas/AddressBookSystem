@@ -16,7 +16,8 @@ namespace AddressBook
                 Console.WriteLine("Enter your option :");
                 Console.WriteLine("1. Add new contact ");
                 Console.WriteLine("2. Display the contacts");
-                Console.WriteLine("3. Edit the contacts");
+                Console.WriteLine("3. Edit  contacts");
+                Console.WriteLine("4. Delete  contacts");
                 option = Convert.ToInt32(Console.ReadLine());
 
                 switch (option)
@@ -48,6 +49,13 @@ namespace AddressBook
                         string NameToEdit = Console.ReadLine();
                             addressBook.EditContact(NameToEdit);
                             break;
+
+                    case 4:
+                        Console.WriteLine("Enter first Name of contact which to be deleted");
+                        string NameToDelete = Console.ReadLine();
+                        addressBook.DeleteContact(NameToDelete);
+                        break;
+
                     default:
                             Console.WriteLine("Wrong input");
                             break;

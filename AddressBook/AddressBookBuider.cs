@@ -98,6 +98,25 @@ namespace AddressBook
             Console.WriteLine("not exits");
         }
 
+
+        public void DeleteContact(string name)
+        {
+            Contacts contact = new Contacts();
+
+            if (list.Count > 0)
+            {
+                foreach (var contactlist in list)
+                {
+                    if (contactlist.FirstName == name)
+                        list.Remove(contact);
+
+                }
+                Console.WriteLine("not exists");
+            }
+            else
+                Console.WriteLine("list is empty,cannot delete");
+        }
+
     }
 }
 
