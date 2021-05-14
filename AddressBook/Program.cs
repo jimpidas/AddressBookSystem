@@ -16,6 +16,7 @@ namespace AddressBook
                 Console.WriteLine("Enter your option :");
                 Console.WriteLine("1. Add new contact ");
                 Console.WriteLine("2. Display the contacts");
+                Console.WriteLine("3. Edit the contacts");
                 option = Convert.ToInt32(Console.ReadLine());
 
                 switch (option)
@@ -42,8 +43,13 @@ namespace AddressBook
                     case 2:
                             addressBook.DisplayContact();
                             break;
+                    case 3:
+                        Console.WriteLine("Enter first Name of contact which to be edited");
+                        string NameToEdit = Console.ReadLine();
+                            addressBook.EditContact(NameToEdit);
+                            break;
                     default:
-                            Console.WriteLine("Please enter 1 or 2");
+                            Console.WriteLine("Wrong input");
                             break;
                 }
                 Console.WriteLine("Do you want to continue?  press 1 if yes,press 0 for Exit");
