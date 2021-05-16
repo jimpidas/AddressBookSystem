@@ -6,11 +6,9 @@ using System.Text;
 namespace AddressBook
 {
     class AddressBookBuider : IContacts
-    {
-
-
-
+    {       
         private LinkedList<Contacts> list = new LinkedList<Contacts>();
+        private Dictionary<string, AddressBookBuider> dictionary=new Dictionary<string,AddressBookBuider>();
         public void AddContact(string firstName, string lastName, string address, string city, string state, string email, int zip, long phoneNumber)
         {
             Contacts contact = new Contacts();
@@ -29,7 +27,7 @@ namespace AddressBook
 
             if (list.Count > 0)
             {
-
+              
                 foreach (var contactlist in list)
                 {
                     Console.WriteLine("First Name : " + contactlist.FirstName);
@@ -99,16 +97,19 @@ namespace AddressBook
         }
 
 
-        public void DeleteContact(string name)
+        public void DeleteContact(string deletename)
         {
-            Contacts contact = new Contacts();
-
+          
+            
             if (list.Count > 0)
             {
-                foreach (var contactlist in list)
+                 foreach(var contact in list)
                 {
-                    if (contactlist.FirstName == name)
+                    if (contact.FirstName == deletename)
+                    {
                         list.Remove(contact);
+                        Console.WriteLine("deleted successfully");
+                    }
 
                 }
                 Console.WriteLine("not exists");
@@ -116,6 +117,19 @@ namespace AddressBook
             else
                 Console.WriteLine("list is empty,cannot delete");
         }
+        
+
+        public void AddAddressBook(string bookName)
+        {
+            AddressBookBuider addressBook = new AddressBookBuider();
+            dictionary.Add(bookName, addressBook);
+            Console.WriteLine("AddressBook Created.");
+        }
+        public Dictionary<string, AddressBookBuider> GetAddressBook()
+        {
+            return dictionary;
+        }
+
 
     }
 }
