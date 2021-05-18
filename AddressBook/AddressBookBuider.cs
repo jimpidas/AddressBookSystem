@@ -6,9 +6,13 @@ using System.Text;
 namespace AddressBook
 {
     class AddressBookBuider : IContacts
-    {       
-        private LinkedList<Contacts> list = new LinkedList<Contacts>();
+    {
+      
+        private LinkedList<Contacts> list  = new LinkedList<Contacts>();
         private Dictionary<string, AddressBookBuider> dictionary=new Dictionary<string,AddressBookBuider>();
+
+        public string deletename { get; private set; }
+
         public void AddContact(string firstName, string lastName, string address, string city, string state, string email, int zip, long phoneNumber)
         {
             Contacts contact = new Contacts();
@@ -100,18 +104,18 @@ namespace AddressBook
         public void DeleteContact(string deletename)
         {
           
-            
             if (list.Count > 0)
             {
                  foreach(var contact in list)
-                {
+                 {
                     if (contact.FirstName == deletename)
                     {
                         list.Remove(contact);
                         Console.WriteLine("deleted successfully");
+                        break;
                     }
 
-                }
+                 }
                 Console.WriteLine("not exists");
             }
             else

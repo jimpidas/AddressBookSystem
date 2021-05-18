@@ -11,7 +11,7 @@ namespace AddressBook
             int option, option1;
             string bookName = "default";
             AddressBookBuider addressBook = new AddressBookBuider();
-
+            Contacts contacts = new Contacts();
             Console.WriteLine("1. Would you like to work on existing addressbook ? if yes press 1");
             Console.WriteLine("2. Would you like to add  new addressbook ? if yes press 2");
             option1 = Convert.ToInt32(Console.ReadLine());
@@ -66,15 +66,15 @@ namespace AddressBook
                             break;
                     case 3:
                         Console.WriteLine("Enter first Name of contact which to be edited");
-                        string NameToEdit = Console.ReadLine();
+                            string NameToEdit = Console.ReadLine();
                             addressBook.EditContact(NameToEdit);
                             break;
 
                     case 4:
                         Console.WriteLine("Enter first Name of contact which to be deleted");
-                        string NameToDelete = Console.ReadLine();
-                        addressBook.DeleteContact(NameToDelete);
-                        break;
+                            string NameToDelete = Console.ReadLine();
+                            addressBook.DeleteContact(NameToDelete);
+                            break;
 
                     case 5: Console.WriteLine("Enter Name For New AddressBook");
                             string newAddressBook = Console.ReadLine();
