@@ -1,0 +1,13 @@
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\bin\Debug\netcoreapp3.1\AddressBook.exe
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\bin\Debug\netcoreapp3.1\AddressBook.deps.json
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\bin\Debug\netcoreapp3.1\AddressBook.runtimeconfig.json
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\bin\Debug\netcoreapp3.1\AddressBook.runtimeconfig.dev.json
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\bin\Debug\netcoreapp3.1\AddressBook.dll
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\bin\Debug\netcoreapp3.1\AddressBook.pdb
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.csprojAssemblyReference.cache
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.AssemblyInfoInputs.cache
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.AssemblyInfo.cs
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.csproj.CoreCompileInputs.cache
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.dll
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.pdb
+C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.genruntimeconfig.cache
