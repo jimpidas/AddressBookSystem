@@ -7,11 +7,9 @@ namespace AddressBook
 {
     class AddressBookBuider : IContacts
     {
-      
-        private LinkedList<Contacts> list  = new LinkedList<Contacts>();
-        private Dictionary<string, AddressBookBuider> dictionary=new Dictionary<string,AddressBookBuider>();
 
-        public string deletename { get; private set; }
+        private  LinkedList<Contacts> list = new LinkedList<Contacts>();
+        private Dictionary<string, AddressBookBuider> dictionary = new Dictionary<string, AddressBookBuider>();
 
         public void AddContact(string firstName, string lastName, string address, string city, string state, string email, int zip, long phoneNumber)
         {
@@ -31,7 +29,7 @@ namespace AddressBook
 
             if (list.Count > 0)
             {
-              
+
                 foreach (var contactlist in list)
                 {
                     Console.WriteLine("First Name : " + contactlist.FirstName);
@@ -53,7 +51,7 @@ namespace AddressBook
             bool flag = false;
             foreach (var contactlist in list)
             {
-                if (contactlist.FirstName==name)
+                if (contactlist.FirstName == name)
                 {
                     flag = true;
                     Console.WriteLine("Enter your choich \n1.First Name \n2.Last Name \n3.Address \n4.City \n5.State \n6.Email \n7.Zip \n8.Phone Number");
@@ -94,20 +92,20 @@ namespace AddressBook
                             break;
                     }
                 }
-  
+
             }
-            if(flag==false)
-            Console.WriteLine("not exits");
+            if (flag == false)
+                Console.WriteLine("not exits");
         }
 
 
         public void DeleteContact(string deletename)
         {
-          
+
             if (list.Count > 0)
             {
-                 foreach(var contact in list)
-                 {
+                foreach (var contact in list)
+                {
                     if (contact.FirstName == deletename)
                     {
                         list.Remove(contact);
@@ -115,13 +113,13 @@ namespace AddressBook
                         break;
                     }
 
-                 }
+                }
                 Console.WriteLine("not exists");
             }
             else
                 Console.WriteLine("list is empty,cannot delete");
         }
-        
+
 
         public void AddAddressBook(string bookName)
         {
@@ -133,7 +131,20 @@ namespace AddressBook
         {
             return dictionary;
         }
+         public string CheckFor_Duplicate(string name)   
+         {
+            
+            foreach (var contact in list)
+            {
+                if(list.Any(e => e.FirstName==name))
+                {
+                    
+                    Console.WriteLine("Sorry! Duplicate entry not allowed.");
+                    return "true";
+                }
+            }
+                return "flag";
+         }
     }
 }
-
 

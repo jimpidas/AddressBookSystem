@@ -11,7 +11,7 @@ namespace AddressBook
             int option, option1;
             string bookName = "default";
             AddressBookBuider addressBook = new AddressBookBuider();
-            Contacts contacts = new Contacts();
+
             Console.WriteLine("1. Would you like to work on existing addressbook ? if yes press 1");
             Console.WriteLine("2. Would you like to add  new addressbook ? if yes press 2");
             option1 = Convert.ToInt32(Console.ReadLine());
@@ -26,8 +26,6 @@ namespace AddressBook
                     addressBook.AddAddressBook(bookName);
                     break;
             }
-
-
             do
             {
                 Console.WriteLine($"you are working on {bookName} addressbook ");
@@ -45,6 +43,8 @@ namespace AddressBook
                     case 1:
                             Console.WriteLine("Enter First Name :");
                             string firstName = Console.ReadLine();
+                            if (addressBook.CheckFor_Duplicate(firstName) == "true")
+                            break;
                             Console.WriteLine("Enter Last Name :");
                             string lastName = Console.ReadLine();
                             Console.WriteLine("Enter Address :");
@@ -66,15 +66,15 @@ namespace AddressBook
                             break;
                     case 3:
                         Console.WriteLine("Enter first Name of contact which to be edited");
-                            string NameToEdit = Console.ReadLine();
+                        string NameToEdit = Console.ReadLine();
                             addressBook.EditContact(NameToEdit);
                             break;
 
                     case 4:
                         Console.WriteLine("Enter first Name of contact which to be deleted");
-                            string NameToDelete = Console.ReadLine();
-                            addressBook.DeleteContact(NameToDelete);
-                            break;
+                        string NameToDelete = Console.ReadLine();
+                        addressBook.DeleteContact(NameToDelete);
+                        break;
 
                     case 5: Console.WriteLine("Enter Name For New AddressBook");
                             string newAddressBook = Console.ReadLine();
@@ -109,7 +109,7 @@ namespace AddressBook
                     default: Console.WriteLine("wrong input");
                             break;
                 }
-                Console.WriteLine("Do you want to continue?  press 1 if yes,press 0 for Exit");
+                Console.WriteLine("Do you want to continue to The Main Menu?  press 1 if yes,press 0 for Exit");
                 option = Convert.ToInt32(Console.ReadLine());
             }
             while (option != 0);
