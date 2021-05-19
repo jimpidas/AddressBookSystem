@@ -36,6 +36,7 @@ namespace AddressBook
                 Console.WriteLine("4. Delete  contacts");
                 Console.WriteLine("5. Add new addressbook");
                 Console.WriteLine("6. Switch Addressbook");
+                Console.WriteLine("7. Search a person in a city or state");
                 option = Convert.ToInt32(Console.ReadLine());
 
                 switch (option)

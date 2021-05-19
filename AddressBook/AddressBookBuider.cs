@@ -145,6 +145,13 @@ namespace AddressBook
             }
                 return "flag";
          }
+        public void SearchPersonByCity(string city)
+        {
+            foreach (AddressBookBuider addressbook in dictionary.Values)
+            {
+                
+            }
+        }
     }
 }
 
