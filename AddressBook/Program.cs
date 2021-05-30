@@ -8,40 +8,24 @@ namespace AddressBook
     {
         public static void Main(string[] args)
         {
-            int option, option1;
-            string bookName = "default";
+            int option;
+            string bookName ;
             AddressBookBuider addressBook = new AddressBookBuider();
-
-            Console.WriteLine("1. Would you like to work on existing addressbook ? if yes press 1");
-            Console.WriteLine("2. Would you like to add  new addressbook ? if yes press 2");
-            option1 = Convert.ToInt32(Console.ReadLine());
-            switch(option1)
-            {
-                case 1:
-                    addressBook.AddAddressBook(bookName);
-                    break;
-                case 2:
-                    Console.WriteLine("Enter Name Of New Addressbook You want to create : ");
-                    bookName = Console.ReadLine();
-                    addressBook.AddAddressBook(bookName);
-                    break;
-            }
             do
             {
-                Console.WriteLine($"you are working on {bookName} addressbook ");
                 Console.WriteLine("Enter your option :");
                 Console.WriteLine("1. Add new contact ");
                 Console.WriteLine("2. Display the contacts");
                 Console.WriteLine("3. Edit  contacts");
                 Console.WriteLine("4. Delete  contacts");
-                Console.WriteLine("5. Add new addressbook");
-                Console.WriteLine("6. Switch Addressbook");
-                Console.WriteLine("7. Search a person in a city or state");
+                Console.WriteLine("5. Search a person in a city or state");
                 option = Convert.ToInt32(Console.ReadLine());
 
                 switch (option)
                 {
                     case 1:
+                            Console.WriteLine("Enter a  name for your Addressbook:");
+                            bookName = Console.ReadLine();
                             Console.WriteLine("Enter First Name :");
                             string firstName = Console.ReadLine();
                             if (addressBook.CheckFor_Duplicate(firstName) == "true")
@@ -60,7 +44,7 @@ namespace AddressBook
                             int zip = Convert.ToInt32(Console.ReadLine());
                             Console.WriteLine("Enter Phone Number :");
                             long phoneNumber = Convert.ToInt64(Console.ReadLine());
-                            addressBook.AddContact(firstName, lastName, address, city, state, email, zip, phoneNumber);
+                            addressBook.AddContact(firstName, lastName, address, city, state, email, zip, phoneNumber, bookName);
                             break;
                     case 2:
                             addressBook.DisplayContact();
@@ -77,36 +61,12 @@ namespace AddressBook
                         addressBook.DeleteContact(NameToDelete);
                         break;
 
-                    case 5: Console.WriteLine("Enter Name For New AddressBook");
-                            string newAddressBook = Console.ReadLine();
-                            addressBook.AddAddressBook(newAddressBook);
-                            Console.WriteLine("Would you like to Switch to " + newAddressBook);
-                            Console.WriteLine("1.Yes \n2.No");
-                            int c = Convert.ToInt32(Console.ReadLine());
-                            if (c == 1)
-                            {
-                                bookName = newAddressBook;
-                            }
-                            break;
-                    case 6:
-                            Console.WriteLine("Enter Name Of AddressBook From Below List");
-                            foreach (KeyValuePair<string, AddressBookBuider> item in addressBook.GetAddressBook())
-                            {
-                                Console.WriteLine(item.Key);
-                            }
-                            while (true)
-                            {
-                                bookName = Console.ReadLine();
-                                if (addressBook.GetAddressBook().ContainsKey(bookName))
-                                {
-                                    break;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("No such AddressBook found. Try Again.");
-                                }
-                            }
-                            break;
+                   
+                    case 5:Console.WriteLine("Enter city or state name");
+                            string input = Console.ReadLine();
+                            addressBook.SearchPersonByCity(input);
+                        break;
+                   
                     default: Console.WriteLine("wrong input");
                             break;
                 }

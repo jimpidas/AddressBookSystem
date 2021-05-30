@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
 namespace AddressBook
 {
+
     class AddressBookBuider : IContacts
     {
+        readonly List<Contacts> list = new List<Contacts>();
+        private readonly Dictionary<string, Contacts> dictionary = new Dictionary<string, Contacts>();
 
-        private  LinkedList<Contacts> list = new LinkedList<Contacts>();
-        private Dictionary<string, AddressBookBuider> dictionary = new Dictionary<string, AddressBookBuider>();
-
-        public void AddContact(string firstName, string lastName, string address, string city, string state, string email, int zip, long phoneNumber)
+        public void AddContact(string firstName, string lastName, string address, string city, string state, string email, int zip, long phoneNumber, string bookName)
         {
             Contacts contact = new Contacts();
             contact.FirstName = firstName;
@@ -22,7 +23,8 @@ namespace AddressBook
             contact.Email = email;
             contact.Zip = zip;
             contact.PhoneNumber = phoneNumber;
-            list.AddLast(contact);
+            list.Add(contact);
+            dictionary.Add(bookName, contact);
         }
         public void DisplayContact()
         {
@@ -30,22 +32,21 @@ namespace AddressBook
             if (list.Count > 0)
             {
 
-                foreach (var contactlist in list)
+                foreach (var contactlist in dictionary)
                 {
-                    Console.WriteLine("First Name : " + contactlist.FirstName);
-                    Console.WriteLine("Last Name : " + contactlist.LastName);
-                    Console.WriteLine("Address : " + contactlist.Address);
-                    Console.WriteLine("City : " + contactlist.City);
-                    Console.WriteLine("State : " + contactlist.State);
-                    Console.WriteLine("Email : " + contactlist.Email);
-                    Console.WriteLine("Zip : " + contactlist.Zip);
-                    Console.WriteLine("Phone Number : " + contactlist.PhoneNumber + "\n");
+                    Console.WriteLine("First Name : " + contactlist.Value.FirstName);
+                    Console.WriteLine("Last Name : " + contactlist.Value.LastName);
+                    Console.WriteLine("Address : " + contactlist.Value.Address);
+                    Console.WriteLine("City : " + contactlist.Value.City);
+                    Console.WriteLine("State : " + contactlist.Value.State);
+                    Console.WriteLine("Email : " + contactlist.Value.Email);
+                    Console.WriteLine("Zip : " + contactlist.Value.Zip);
+                    Console.WriteLine("Phone Number : " + contactlist.Value.PhoneNumber + "\n");
                 }
             }
             else
                 Console.WriteLine("list  is empty");
         }
-
         public void EditContact(string name)
         {
             bool flag = false;
@@ -97,8 +98,6 @@ namespace AddressBook
             if (flag == false)
                 Console.WriteLine("not exits");
         }
-
-
         public void DeleteContact(string deletename)
         {
 
@@ -119,37 +118,36 @@ namespace AddressBook
             else
                 Console.WriteLine("list is empty,cannot delete");
         }
-
-
-        public void AddAddressBook(string bookName)
+        public string CheckFor_Duplicate(string name)
         {
-            AddressBookBuider addressBook = new AddressBookBuider();
-            dictionary.Add(bookName, addressBook);
-            Console.WriteLine("AddressBook Created.");
-        }
-        public Dictionary<string, AddressBookBuider> GetAddressBook()
-        {
-            return dictionary;
-        }
-         public string CheckFor_Duplicate(string name)   
-         {
-            
-            foreach (var contact in list)
+
+            foreach (var contact in dictionary)
             {
-                if(list.Any(e => e.FirstName==name))
+                if (dictionary.Values.Any(e => e.FirstName == name))
                 {
-                    
+
                     Console.WriteLine("Sorry! Duplicate entry not allowed.");
                     return "true";
                 }
             }
-                return "flag";
-         }
-        public void SearchPersonByCity(string city)
+            return "flag";
+        }
+        public void SearchPersonByCity(string cityOrstate)
         {
-            foreach (AddressBookBuider addressbook in dictionary.Values)
+            foreach (var element in dictionary)
             {
-                
+                if (element.Value.City.Equals(cityOrstate))
+                {
+                    Console.WriteLine("firstname " + element.Value.FirstName + ":City " + element.Value.City);
+                }
+                else if (element.Value.State.Equals(cityOrstate))
+                {
+                    Console.WriteLine(" Firstname" + element.Value.FirstName + ":State " + element.Value.State);
+                }
+                else
+                {
+                    Console.WriteLine("No such City or State stored in your addressbook.\nAvailable city and states are ::\n Cites:: " + element.Value.City + "\nStates:: " + element.Value.State);
+                }
             }
         }
     }
