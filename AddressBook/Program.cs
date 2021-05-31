@@ -38,6 +38,7 @@ namespace AddressBook
                 Console.WriteLine("6. Switch Addressbook");
                 Console.WriteLine("7. Search person in a city or State");
                 Console.WriteLine("8. Get count of  persons by city or State");
+                Console.WriteLine("9. Sort Entries by Person name");
                 option = Convert.ToInt32(Console.ReadLine());
 
                 switch (option)
@@ -131,6 +132,8 @@ namespace AddressBook
                         }
                         break;
                     case 8:addressBook.GetCountByCityOrState(bookName);
+                        break;
+                    case 9: addressBook.SortEntryByName();
                         break;
                     default:
                         Console.WriteLine("wrong input");

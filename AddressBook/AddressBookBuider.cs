@@ -22,20 +22,20 @@ namespace AddressBook
         }
         public void DisplayContact(string bookName)
         {
-            Console.WriteLine($"You are working on {bookName} addressbook",bookName);
+            Console.WriteLine($"You are working on {bookName} addressbook", bookName);
             foreach (KeyValuePair<string, Contacts> item in addressBookDictionary[bookName].addressBook)
             {
-                    Console.WriteLine("First Name : " + item.Value.FirstName);
-                    Console.WriteLine("Last Name : " + item.Value.LastName);
-                    Console.WriteLine("Address : " + item.Value.Address);
-                    Console.WriteLine("City : " + item.Value.City);
-                    Console.WriteLine("State : " + item.Value.State);
-                    Console.WriteLine("Email : " + item.Value.Email);
-                    Console.WriteLine("Zip : " + item.Value.Zip);
-                    Console.WriteLine("Phone Number : " + item.Value.PhoneNumber + "\n"); 
+                Console.WriteLine("First Name : " + item.Value.FirstName);
+                Console.WriteLine("Last Name : " + item.Value.LastName);
+                Console.WriteLine("Address : " + item.Value.Address);
+                Console.WriteLine("City : " + item.Value.City);
+                Console.WriteLine("State : " + item.Value.State);
+                Console.WriteLine("Email : " + item.Value.Email);
+                Console.WriteLine("Zip : " + item.Value.Zip);
+                Console.WriteLine("Phone Number : " + item.Value.PhoneNumber + "\n");
             }
         }
-        public void EditContact(string name,string bookName)
+        public void EditContact(string name, string bookName)
         {
             bool flag = false;
             foreach (KeyValuePair<string, Contacts> item in addressBookDictionary[bookName].addressBook)
@@ -117,7 +117,7 @@ namespace AddressBook
                 Console.WriteLine("Name already Exists.");
                 return true;
             }
-            return false; 
+            return false;
         }
         public void SearchPersonByCity(string city)
         {
@@ -163,7 +163,7 @@ namespace AddressBook
                 }
             }
         }
-       
+
         public List<Contacts> GetListOfDictionaryValues(string bookName)
         {
             List<Contacts> book = new List<Contacts>();
@@ -194,11 +194,23 @@ namespace AddressBook
                     cityCount++;
                 if (cityNameOrStateName.Equals(item.Value.State))
                     stateCount++;
-                    
+
             }
             Console.WriteLine("The count of pesron by city is : " + cityCount + "and by state is : " + stateCount);
 
         }
-    }
+        public void SortEntryByName()
+        {
+            foreach (AddressBookBuider item in addressBookDictionary.Values)
+            {
+                List<string> list = item.addressBook.Keys.ToList();
+                list.Sort();
+                foreach(var name in list)
+                {
+                    Console.WriteLine(item.addressBook[name].ToString());
+                }
+            }
+        }
+    } 
 }
 
