@@ -9,50 +9,38 @@ namespace AddressBook
 
     class AddressBookBuider : IContacts
     {
-        readonly List<Contacts> list = new List<Contacts>();
-        private readonly Dictionary<string, Contacts> dictionary = new Dictionary<string, Contacts>();
+        private Dictionary<string, Contacts> addressBook = new Dictionary<string, Contacts>();
+        private Dictionary<string, AddressBookBuider> addressBookDictionary = new Dictionary<string, AddressBookBuider>();
+        private Dictionary<Contacts, string> cityDictionary = new Dictionary<Contacts, string>();
+        private Dictionary<Contacts, string> stateDictionary = new Dictionary<Contacts, string>();
 
         public void AddContact(string firstName, string lastName, string address, string city, string state, string email, int zip, long phoneNumber, string bookName)
         {
-            Contacts contact = new Contacts();
-            contact.FirstName = firstName;
-            contact.LastName = lastName;
-            contact.Address = address;
-            contact.City = city;
-            contact.State = state;
-            contact.Email = email;
-            contact.Zip = zip;
-            contact.PhoneNumber = phoneNumber;
-            list.Add(contact);
-            dictionary.Add(bookName, contact);
+            Contacts contact = new Contacts(firstName, lastName, address, city, state, email, zip, phoneNumber);
+            addressBookDictionary[bookName].addressBook.Add(contact.FirstName + " " + contact.LastName, contact);
+            Console.WriteLine("\nAdded Succesfully. \n");
         }
-        public void DisplayContact()
+        public void DisplayContact(string bookName)
         {
-
-            if (list.Count > 0)
+            Console.WriteLine($"You are working on {bookName} addressbook",bookName);
+            foreach (KeyValuePair<string, Contacts> item in addressBookDictionary[bookName].addressBook)
             {
-
-                foreach (var contactlist in dictionary)
-                {
-                    Console.WriteLine("First Name : " + contactlist.Value.FirstName);
-                    Console.WriteLine("Last Name : " + contactlist.Value.LastName);
-                    Console.WriteLine("Address : " + contactlist.Value.Address);
-                    Console.WriteLine("City : " + contactlist.Value.City);
-                    Console.WriteLine("State : " + contactlist.Value.State);
-                    Console.WriteLine("Email : " + contactlist.Value.Email);
-                    Console.WriteLine("Zip : " + contactlist.Value.Zip);
-                    Console.WriteLine("Phone Number : " + contactlist.Value.PhoneNumber + "\n");
-                }
+                    Console.WriteLine("First Name : " + item.Value.FirstName);
+                    Console.WriteLine("Last Name : " + item.Value.LastName);
+                    Console.WriteLine("Address : " + item.Value.Address);
+                    Console.WriteLine("City : " + item.Value.City);
+                    Console.WriteLine("State : " + item.Value.State);
+                    Console.WriteLine("Email : " + item.Value.Email);
+                    Console.WriteLine("Zip : " + item.Value.Zip);
+                    Console.WriteLine("Phone Number : " + item.Value.PhoneNumber + "\n"); 
             }
-            else
-                Console.WriteLine("list  is empty");
         }
-        public void EditContact(string name)
+        public void EditContact(string name,string bookName)
         {
             bool flag = false;
-            foreach (var contactlist in list)
+            foreach (KeyValuePair<string, Contacts> item in addressBookDictionary[bookName].addressBook)
             {
-                if (contactlist.FirstName == name)
+                if (item.Key.Equals(name))
                 {
                     flag = true;
                     Console.WriteLine("Enter your choich \n1.First Name \n2.Last Name \n3.Address \n4.City \n5.State \n6.Email \n7.Zip \n8.Phone Number");
@@ -61,35 +49,35 @@ namespace AddressBook
                     {
                         case 1:
                             Console.WriteLine("Enter New First Name :");
-                            contactlist.FirstName = Console.ReadLine();
+                            item.Value.FirstName = Console.ReadLine();
                             break;
                         case 2:
                             Console.WriteLine("Enter New Last Name :");
-                            contactlist.LastName = Console.ReadLine();
+                            item.Value.LastName = Console.ReadLine();
                             break;
                         case 3:
                             Console.WriteLine("Enter New Address :");
-                            contactlist.Address = Console.ReadLine();
+                            item.Value.Address = Console.ReadLine();
                             break;
                         case 4:
                             Console.WriteLine("Enter New City :");
-                            contactlist.City = Console.ReadLine();
+                            item.Value.City = Console.ReadLine();
                             break;
                         case 5:
                             Console.WriteLine("Enter New State :");
-                            contactlist.State = Console.ReadLine();
+                            item.Value.State = Console.ReadLine();
                             break;
                         case 6:
                             Console.WriteLine("Enter New Email :");
-                            contactlist.Email = Console.ReadLine();
+                            item.Value.Email = Console.ReadLine();
                             break;
                         case 7:
                             Console.WriteLine("Enter New Zip :");
-                            contactlist.Zip = Convert.ToInt32(Console.ReadLine());
+                            item.Value.Zip = Convert.ToInt32(Console.ReadLine());
                             break;
                         case 8:
                             Console.WriteLine("Enter New Phone Number :");
-                            contactlist.PhoneNumber = Convert.ToInt64(Console.ReadLine());
+                            item.Value.PhoneNumber = Convert.ToInt64(Console.ReadLine());
                             break;
                     }
                 }
@@ -98,57 +86,101 @@ namespace AddressBook
             if (flag == false)
                 Console.WriteLine("not exits");
         }
-        public void DeleteContact(string deletename)
+        public void DeleteContact(string name, string bookName)
         {
-
-            if (list.Count > 0)
+            if (addressBookDictionary[bookName].addressBook.ContainsKey(name))
             {
-                foreach (var contact in list)
-                {
-                    if (contact.FirstName == deletename)
-                    {
-                        list.Remove(contact);
-                        Console.WriteLine("deleted successfully");
-                        break;
-                    }
-
-                }
-                Console.WriteLine("not exists");
+                addressBookDictionary[bookName].addressBook.Remove(name);
+                Console.WriteLine("\nDeleted Succesfully.\n");
             }
             else
-                Console.WriteLine("list is empty,cannot delete");
+            {
+                Console.WriteLine("\nNot Found, Try Again.\n");
+            }
         }
-        public string CheckFor_Duplicate(string name)
+        public void AddAddressBook(string bookName)
+        {
+            AddressBookBuider addressBook = new AddressBookBuider();
+            addressBookDictionary.Add(bookName, addressBook);
+            Console.WriteLine("AddressBook Created.");
+        }
+        public Dictionary<string, AddressBookBuider> GetAddressBook()
+        {
+            return addressBookDictionary;
+        }
+        public bool CheckFor_Duplicate(Contacts c, string bookName)
         {
 
-            foreach (var contact in dictionary)
+            List<Contacts> book = GetListOfDictionaryValues(bookName);
+            if (book.Any(b => b.Equals(c)))
             {
-                if (dictionary.Values.Any(e => e.FirstName == name))
-                {
-
-                    Console.WriteLine("Sorry! Duplicate entry not allowed.");
-                    return "true";
-                }
+                Console.WriteLine("Name already Exists.");
+                return true;
             }
-            return "flag";
+            return false; 
         }
-        public void SearchPersonByCity(string cityOrstate)
+        public void SearchPersonByCity(string city)
         {
-            foreach (var element in dictionary)
+            foreach (AddressBookBuider addressbookobj in addressBookDictionary.Values)
             {
-                if (element.Value.City.Equals(cityOrstate))
+                CreateCityDictionary();
+                List<Contacts> contactList = GetListOfDictionaryKeys(addressbookobj.cityDictionary);
+                foreach (Contacts contact in contactList.FindAll(c => c.City.Equals(city)).ToList())
                 {
-                    Console.WriteLine("firstname " + element.Value.FirstName + ":City " + element.Value.City);
-                }
-                else if (element.Value.State.Equals(cityOrstate))
-                {
-                    Console.WriteLine(" Firstname" + element.Value.FirstName + ":State " + element.Value.State);
-                }
-                else
-                {
-                    Console.WriteLine("No such City or State stored in your addressbook.\nAvailable city and states are ::\n Cites:: " + element.Value.City + "\nStates:: " + element.Value.State);
+                    Console.WriteLine(contact.ToString());
                 }
             }
+        }
+        public void SearchPersonByState(string state)
+        {
+            foreach (AddressBookBuider addressbookobj in addressBookDictionary.Values)
+            {
+                CreateStateDictionary();
+                List<Contacts> contactList = GetListOfDictionaryKeys(addressbookobj.stateDictionary);
+                foreach (Contacts contact in contactList.FindAll(c => c.State.Equals(state)).ToList())
+                {
+                    Console.WriteLine(contact.ToString());
+                }
+            }
+        }
+        public void CreateCityDictionary()
+        {
+            foreach (AddressBookBuider addressBookObj in addressBookDictionary.Values)
+            {
+                foreach (Contacts contact in addressBookObj.addressBook.Values)
+                {
+                    addressBookObj.cityDictionary.TryAdd(contact, contact.City);
+                }
+            }
+        }
+        public void CreateStateDictionary()
+        {
+            foreach (AddressBookBuider addressBookObj in addressBookDictionary.Values)
+            {
+                foreach (Contacts contact in addressBookObj.addressBook.Values)
+                {
+                    addressBookObj.stateDictionary.TryAdd(contact, contact.State);
+                }
+            }
+        }
+       
+        public List<Contacts> GetListOfDictionaryValues(string bookName)
+        {
+            List<Contacts> book = new List<Contacts>();
+            foreach (var value in addressBookDictionary[bookName].addressBook.Values)
+            {
+                book.Add(value);
+            }
+            return book;
+        }
+        public List<Contacts> GetListOfDictionaryKeys(Dictionary<Contacts, string> d)
+        {
+            List<Contacts> book = new List<Contacts>();
+            foreach (var value in d.Keys)
+            {
+                book.Add(value);
+            }
+            return book;
         }
     }
 }
