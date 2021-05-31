@@ -9,8 +9,8 @@ namespace AddressBook
 
     class AddressBookBuider : IContacts
     {
-        private Dictionary<string, Contacts> addressBook = new Dictionary<string, Contacts>();
-        private Dictionary<string, AddressBookBuider> addressBookDictionary = new Dictionary<string, AddressBookBuider>();
+        internal Dictionary<string, Contacts> addressBook = new Dictionary<string, Contacts>();
+        internal Dictionary<string, AddressBookBuider> addressBookDictionary = new Dictionary<string, AddressBookBuider>();
         private Dictionary<Contacts, string> cityDictionary = new Dictionary<Contacts, string>();
         private Dictionary<Contacts, string> stateDictionary = new Dictionary<Contacts, string>();
 
