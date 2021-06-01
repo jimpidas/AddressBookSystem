@@ -205,12 +205,13 @@ namespace AddressBook
             {
                 List<string> list = item.addressBook.Keys.ToList();
                 list.Sort();
-                foreach(var name in list)
+                foreach (var name in list)
                 {
                     Console.WriteLine(item.addressBook[name].ToString());
                 }
             }
         }
-    } 
+       
+    }
 }
 

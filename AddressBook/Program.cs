@@ -40,6 +40,8 @@ namespace AddressBook
                 Console.WriteLine("8. Get count of  persons by city or State");
                 Console.WriteLine("9. Sort Entries by Person name");
                 Console.WriteLine("10.Read or write addressbook contacts using File IO");
+                Console.WriteLine("11.Read or write addressbook contacts using CSV file");
+                Console.WriteLine("12.Read or write addressbook contacts using Json file");
                 option = Convert.ToInt32(Console.ReadLine());
 
                 switch (option)
@@ -140,6 +142,15 @@ namespace AddressBook
                         ReadWriteFileIO fileIO = new ReadWriteFileIO();
                         fileIO.WriteToFile(addressBook.addressBookDictionary);
                         fileIO.ReadFromFile();
+                        break;
+                    case 11:
+                        CSVHandler handler = new CSVHandler();
+                        handler.WriteToCsv(addressBook.addressBookDictionary);
+                        handler.ReadFromCSV();
+                        break;
+                    case 12: ReadWriteJson json = new ReadWriteJson();
+                        json.WriteToFile(addressBook.addressBookDictionary);
+                        json.ReadFromFile();
                         break;
                     default:
                         Console.WriteLine("wrong input");
