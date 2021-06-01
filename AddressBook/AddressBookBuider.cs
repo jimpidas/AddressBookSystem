@@ -81,7 +81,6 @@ namespace AddressBook
                             break;
                     }
                 }
-
             }
             if (flag == false)
                 Console.WriteLine("not exits");
@@ -163,7 +162,6 @@ namespace AddressBook
                 }
             }
         }
-
         public List<Contacts> GetListOfDictionaryValues(string bookName)
         {
             List<Contacts> book = new List<Contacts>();
@@ -197,7 +195,6 @@ namespace AddressBook
 
             }
             Console.WriteLine("The count of pesron by city is : " + cityCount + "and by state is : " + stateCount);
-
         }
         public void SortEntryByName()
         {
