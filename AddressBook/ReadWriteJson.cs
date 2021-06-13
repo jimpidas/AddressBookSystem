@@ -8,7 +8,6 @@ namespace AddressBook
 {
     class ReadWriteJson
     {
-
         string filePath = @"C:\Users\Dell\DotNetProjects\AddressBook\AddressBook\AddressRecord.json";
         public void WriteToFile(Dictionary<string, AddressBookBuider> addressBookDictionary)
         {

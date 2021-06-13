@@ -23,8 +23,8 @@ namespace AddressBook
             writer.Close();
         }
        public void ReadFromFile()
-        {
+       {
             Console.WriteLine(File.ReadAllText(file));
-        }
+       }
     }
 }
