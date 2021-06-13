@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AddressBookSystem_ADO
 {
-    class AddressBookModel
+   public class AddressBookModel
     {
         public int person_id { get; set; }
         public string firstname { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 
@@ -27,6 +28,7 @@ namespace AddressBookSystem_ADO
                         Console.WriteLine("Address Book Services Database has following Contact details right now");
                         while (sqlDataReader.Read())
                         {
+
                             addressBookModel.person_id = sqlDataReader.GetInt32(0);
                             addressBookModel.firstname = sqlDataReader.GetString(1);
                             addressBookModel.lastname = sqlDataReader.GetString(2);
@@ -40,7 +42,7 @@ namespace AddressBookSystem_ADO
                             addressBookModel.book_type = sqlDataReader.GetString(7);
                             Count++;
                             Console.WriteLine("{0}, {1}, {2}, {4}, {5}, {6}, {7}, {8}, {9}, {10}", addressBookModel.person_id, addressBookModel.firstname, addressBookModel.lastname,
-                                addressBookModel.phone, addressBookModel.email, addressBookModel.book_id, addressBookModel.city, addressBookModel.zip, addressBookModel.state, addressBookModel.book_name,addressBookModel.book_type);
+                                addressBookModel.phone, addressBookModel.email, addressBookModel.book_id, addressBookModel.city, addressBookModel.zip, addressBookModel.state, addressBookModel.book_name, addressBookModel.book_type);
                         }
                         Console.WriteLine("New Contact Added Successfully");
                         sqlDataReader.Close();
@@ -55,5 +57,36 @@ namespace AddressBookSystem_ADO
             }
         }
 
+        public bool UpdateContact(AddressBookModel model)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("SpUpdateContact", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@first_name", model.firstname);
+                    command.Parameters.AddWithValue("@last_name", model.lastname);
+                    command.Parameters.AddWithValue("@phone_no", model.phone);
+                    command.Parameters.AddWithValue("@email1", model.email);
+                    command.Parameters.AddWithValue("@zip1", model.zip);
+                    
+                    
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    Console.WriteLine("Contact Updated Successfully !");
+                    connection.Close();
+                    if (result == 0)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
