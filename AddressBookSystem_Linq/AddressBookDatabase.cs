@@ -19,7 +19,7 @@ namespace AddressBookSystem_ADO
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     string retrieveQuery = @"select p.person_id,p.firstname,p.lastname,p.date_added,p.phone,p.email,ab.book_name,ab.book_id,ab.book_type   ,p.zip ,a.city,a.state from person p inner join address a on p.zip=a.zip inner join Person_addressbook pa on pa.person_id=p.person_id inner join addressbook ab on ab.book_id=pa.book_id";
-;
+                    ;
                     SqlCommand sqlCommand = new SqlCommand(retrieveQuery, connection);
                     connection.Open();
                     SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
@@ -40,7 +40,7 @@ namespace AddressBookSystem_ADO
                             addressBookModel.state = sqlDataReader.GetString(11);
                             addressBookModel.book_name = sqlDataReader.GetString(6);
                             addressBookModel.book_type = sqlDataReader.GetString(8);
-                            addressBookModel.date_added= sqlDataReader.GetDateTime(3);
+                            addressBookModel.date_added = sqlDataReader.GetDateTime(3);
                             Count++;
                             Console.WriteLine("{0}, {1}, {2},{3}, {4}, {5}, {6}, {7}, {8}, {9}, {10} {11}", addressBookModel.person_id, addressBookModel.firstname, addressBookModel.lastname, addressBookModel.date_added,
                                 addressBookModel.phone, addressBookModel.email, addressBookModel.book_name, addressBookModel.book_id, addressBookModel.book_type, addressBookModel.zip, addressBookModel.city, addressBookModel.state);
@@ -71,8 +71,8 @@ namespace AddressBookSystem_ADO
                     command.Parameters.AddWithValue("@phone_no", model.phone);
                     command.Parameters.AddWithValue("@email1", model.email);
                     command.Parameters.AddWithValue("@zip1", model.zip);
-                    
-                    
+
+
                     connection.Open();
                     var result = command.ExecuteNonQuery();
                     Console.WriteLine("Contact Updated Successfully !");
@@ -93,7 +93,7 @@ namespace AddressBookSystem_ADO
 
         public bool RetriveContactInParticularPeriod()
         {
-            
+
             try
             {
                 AddressBookModel addressBookModel = new AddressBookModel();
@@ -101,7 +101,7 @@ namespace AddressBookSystem_ADO
                 {
                     string retrieveQuery = @"select p.person_id,p.firstname,p.lastname,p.date_added,p.phone,p.email,ab.book_name,ab.book_id,ab.book_type   ,p.zip ,a.city,a.state from person p inner join address a on p.zip=a.zip inner join
                                             Person_addressbook pa on pa.person_id=p.person_id inner join addressbook ab on ab.book_id=pa.book_id where p.date_added between '2019-03-12' and getdate();";
-                    
+
                     SqlCommand sqlCommand = new SqlCommand(retrieveQuery, connection);
                     connection.Open();
                     SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
@@ -123,7 +123,7 @@ namespace AddressBookSystem_ADO
                             addressBookModel.book_name = sqlDataReader.GetString(6);
                             addressBookModel.book_type = sqlDataReader.GetString(8);
                             addressBookModel.date_added = sqlDataReader.GetDateTime(3);
-                            
+
                             Console.WriteLine("{0}, {1}, {2},{3}, {4}, {5}, {6}, {7}, {8}, {9}, {10} {11}", addressBookModel.person_id, addressBookModel.firstname, addressBookModel.lastname, addressBookModel.date_added,
                                 addressBookModel.phone, addressBookModel.email, addressBookModel.book_name, addressBookModel.book_id, addressBookModel.book_type, addressBookModel.zip, addressBookModel.city, addressBookModel.state);
                         }
@@ -134,11 +134,33 @@ namespace AddressBookSystem_ADO
                     connection.Close();
                     return false;
                 }
-                
+
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
+            }
+        }
+        public int RetriveContactByCityOrState(AddressBookModel addressBookModel)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand command = new SqlCommand("SpRetriveContactByCityOrState", connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@state_name", addressBookModel.state);
+                connection.Open();
+                var Count = (int)command.ExecuteScalar();
+                SqlDataReader sqlDataReader = command.ExecuteReader();
+                if (sqlDataReader.HasRows)
+                {
+                    while (sqlDataReader.Read())
+                    {
+                        addressBookModel.person_id = sqlDataReader.GetInt32(0);
+                        Console.WriteLine("Number of Conctacts beloning to entered City Or State {0}", addressBookModel.person_id);
+                    }
+                }
+                return Count;
             }
         }
     }
