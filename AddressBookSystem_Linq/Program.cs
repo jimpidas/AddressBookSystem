@@ -7,7 +7,7 @@ namespace AddressBookSystem_ADO
         static void Main(string[] args)
         {
             AddressBookDatabase ab = new AddressBookDatabase();
-            ab.GetPersonDetailsfromDatabase();
+            ab.RetriveContactInParticularPeriod();
         }
     }
 }

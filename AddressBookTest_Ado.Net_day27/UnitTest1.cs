@@ -34,6 +34,17 @@ namespace AddressBookTest_Ado.Net_day27
                 };
                 bool result = database.UpdateContact(model);
                 Assert.AreEqual(expectedResult, result);
-            } 
+            }
+
+
+        [TestMethod]
+        public void GivenDate_ShouldReturnRecordsInAParticularPeriod()
+        {
+            bool expectedResult = true;
+            AddressBookDatabase database = new AddressBookDatabase();
+            bool result = database.RetriveContactInParticularPeriod();
+            Assert.AreEqual(expectedResult, result);
+        }
+
     }
 }
