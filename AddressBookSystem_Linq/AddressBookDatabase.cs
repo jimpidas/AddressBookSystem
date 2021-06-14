@@ -163,5 +163,38 @@ namespace AddressBookSystem_ADO
                 return Count;
             }
         }
+
+        public bool AddNewContact(AddressBookModel model)
+        {
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    SqlCommand command = new SqlCommand("SpAddNewRecord", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@first_name", model.firstname);
+                    command.Parameters.AddWithValue("@last_name", model.lastname);
+                    command.Parameters.AddWithValue("@email", model.email);
+                    command.Parameters.AddWithValue("@phone_number", model.phone);
+                    command.Parameters.AddWithValue("@zip", model.zip);
+                    command.Parameters.AddWithValue("@date_added", model.date_added);
+                    command.Parameters.AddWithValue("@person_id", model.person_id);
+                    command.Parameters.AddWithValue("@book_id", model.book_id);
+                    connection.Open();
+                    var result = command.ExecuteNonQuery();
+                    Console.WriteLine("New Contact Added Successfully");
+                    connection.Close();
+                    if (result == 0)
+                    {
+                        return false;
+                    }
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
