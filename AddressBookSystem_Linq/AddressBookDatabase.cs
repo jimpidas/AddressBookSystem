@@ -164,37 +164,42 @@ namespace AddressBookSystem_ADO
             }
         }
 
-        public bool AddNewContact(AddressBookModel model)
+        public bool AddNewContact(List<AddressBookDetail> model1)
         {
-            try
+            //List<AddressBookDetail> addressBookModelslist = new List<AddressBookDetail>();
+            var result = 0;
+            foreach (AddressBookDetail model in model1)
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                try
                 {
-                    SqlCommand command = new SqlCommand("SpAddNewRecord", connection);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@first_name", model.firstname);
-                    command.Parameters.AddWithValue("@last_name", model.lastname);
-                    command.Parameters.AddWithValue("@email", model.email);
-                    command.Parameters.AddWithValue("@phone_number", model.phone);
-                    command.Parameters.AddWithValue("@zip", model.zip);
-                    command.Parameters.AddWithValue("@date_added", model.date_added);
-                    command.Parameters.AddWithValue("@person_id", model.person_id);
-                    command.Parameters.AddWithValue("@book_id", model.book_id);
-                    connection.Open();
-                    var result = command.ExecuteNonQuery();
-                    Console.WriteLine("New Contact Added Successfully");
-                    connection.Close();
-                    if (result == 0)
+                    using (SqlConnection connection = new SqlConnection(connectionString))
                     {
-                        return false;
+                        SqlCommand command = new SqlCommand("SpAddNewRecord", connection);
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@first_name", model.firstname);
+                        command.Parameters.AddWithValue("@last_name", model.lastname);
+                        command.Parameters.AddWithValue("@email", model.email);
+                        command.Parameters.AddWithValue("@phone_number", model.phone);
+                        command.Parameters.AddWithValue("@zip", model.zip);
+                        command.Parameters.AddWithValue("@date_added", model.date_added);
+                        command.Parameters.AddWithValue("@person_id", model.person_id);
+                        command.Parameters.AddWithValue("@book_id", model.book_id);
+                        connection.Open();
+                        result = command.ExecuteNonQuery();
+                        //addressBookModelslist.Add(model);
+                        Console.WriteLine("New Contact Added Successfully");
+                        connection.Close();
                     }
-                    return true;
+                    
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
                 }
             }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            if(result!=0)
+                return true;
+            return false;
         }
     }
 }

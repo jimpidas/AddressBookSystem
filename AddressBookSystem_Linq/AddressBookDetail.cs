@@ -4,10 +4,20 @@ using System.Text;
 
 namespace AddressBookSystem_ADO
 {
-    public class AddressBookModel
+    public class AddressBookDetail
     {
-
-        
+        public AddressBookDetail(string firstname, string lastname, string phone, string email, string city, int book_id, int person_id, int zip, DateTime date_added)
+        {
+            this.firstname = firstname;
+            this.lastname = lastname;
+            this.phone = phone;
+            this.email = email;
+            this.city = city;
+            this.book_id = book_id;
+            this.person_id = person_id;
+            this.zip = zip;
+            this.date_added = date_added;
+        }
         public int person_id { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
@@ -20,6 +30,5 @@ namespace AddressBookSystem_ADO
         public int zip { get; set; }
         public string state { get; set; }
         public DateTime date_added { get; set; }
-
     }
 }
