@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook", "AddressBook\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBookSystem_ADO", "AddressBookSystem_Linq\AddressBookSystem_ADO.csproj", "{525E06DA-9EA5-483A-A6A8-8F151A58A568}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressBookTest_Ado.Net_day27", "AddressBookTest_Ado.Net_day27\AddressBookTest_Ado.Net_day27.csproj", "{EAC90F19-8AA7-4729-81E8-0982638C75B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBookTest_Ado.Net_day27", "AddressBookTest_Ado.Net_day27\AddressBookTest_Ado.Net_day27.csproj", "{EAC90F19-8AA7-4729-81E8-0982638C75B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestSharpAndJsonServer", "RestSharpAndJsonServer\RestSharpAndJsonServer.csproj", "{D43F1BC2-3454-4F46-9171-AB2B94FC467A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{EAC90F19-8AA7-4729-81E8-0982638C75B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAC90F19-8AA7-4729-81E8-0982638C75B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAC90F19-8AA7-4729-81E8-0982638C75B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D43F1BC2-3454-4F46-9171-AB2B94FC467A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D43F1BC2-3454-4F46-9171-AB2B94FC467A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D43F1BC2-3454-4F46-9171-AB2B94FC467A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D43F1BC2-3454-4F46-9171-AB2B94FC467A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
